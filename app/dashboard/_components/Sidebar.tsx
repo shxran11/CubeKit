@@ -8,6 +8,7 @@ import { MdOutlineTipsAndUpdates } from "react-icons/md";
 import { HiOutlineLogout } from "react-icons/hi";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Progress } from "@/components/ui/progress";
 
 const Sidebar = () => {
   const Menu = [
@@ -38,12 +39,12 @@ const Sidebar = () => {
   ];
   const path = usePathname();
   return (
-    <div className="fixed h-full md:w-64 p-5 shadow-md">
+    <div className="fixed h-full p-2 md:w-64 shadow-md border-r">
       <Image
         src={"/logo.png"}
         alt="logo"
         width={180}
-        height={150}
+        height={140}
         className="ml-5"
       />
       <hr className="my-2" />
@@ -61,6 +62,13 @@ const Sidebar = () => {
           </Link>
         ))}
       </ul>
+      <div className="absolute bottom-10 w-[90%]">
+        <Progress value={33} />
+        <p className="text-sm my-2">2 out of 5 courses generated</p>
+        <p className="text-xs text-gray-600">
+          Upgrade your plan for unlimited course generation.
+        </p>
+      </div>
     </div>
   );
 };
