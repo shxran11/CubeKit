@@ -45,9 +45,9 @@ const Sidebar = () => {
         alt="logo"
         width={180}
         height={140}
-        className="ml-5"
+        className="ml-5 mb-2"
       />
-      <hr className="my-2" />
+      <hr />
       <ul>
         {Menu.map((item) => (
           <Link href={item.path} key={item.id}>
