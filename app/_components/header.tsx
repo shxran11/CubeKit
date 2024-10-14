@@ -4,12 +4,12 @@ import { ToggleThemeButton } from "./ToggleThemeButton";
 
 const Header = () => {
   return (
-    <div className="flex justify-between shadow-md">
+    <div className="flex justify-between shadow-md m-2">
       <Image
-        src={"/logo.png"}
+        src={"/logo-full.png"}
         alt="Logo"
-        width={180}
-        height={150}
+        width={150}
+        height={100}
         className="ml-2"
       />
       <div className="flex justify-between m-4 gap-2">
