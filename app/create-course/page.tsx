@@ -14,23 +14,26 @@ const CreateCoursePage = () => {
       id: 1,
       name: "Category",
       icon: <HiServerStack />,
+      path: "/create-course",
     },
     {
       id: 2,
       name: "Topic and Desc",
       icon: <HiClipboardDocumentList />,
+      path: "/create-course/topic&desc",
     },
     {
       id: 3,
       name: "Options",
       icon: <HiMiniSquaresPlus />,
+      path: "/create-course/options",
     },
   ];
 
   const [activeIndex, setActiveIndex] = useState(0);
   return (
-    <div className="mt-10">
-      <div className="text-3xl md:text-4xl font-bold text-primary flex justify-center items-center">
+    <div className="mt-10 p-2 md:p-5">
+      <div className="text-3xl md:text-4xl font-semibold text-primary flex justify-center items-center">
         Create New Course
       </div>
       <div className="flex justify-center items-center mt-10 text-4xl">
@@ -41,8 +44,10 @@ const CreateCoursePage = () => {
           >
             <div className="flex flex-col items-center gap-3">
               <div
-                className={`bg-violet-300 text-white rounded-full p-2 m-2 ${
-                  activeIndex >= index && "bg-purple-500"
+                className={`rounded-full p-2 m-2 ${
+                  activeIndex >= index
+                    ? "bg-purple-500 dark:bg-purple-500 text-white"
+                    : "bg-violet-300 text-white"
                 }`}
               >
                 {item.icon}
@@ -54,14 +59,28 @@ const CreateCoursePage = () => {
             {index != Steppers.length - 1 && (
               <div
                 className={`h-1 w-[50px] md:w-[100px] lg:w-[200px] bg-gray-300 dark:bg-gray-700 rounded-full ${
-                  activeIndex - 1 >= index && "bg-purple-500"
+                  activeIndex - 1 >= index && "bg-purple-500 dark:bg-purple-500"
                 }`}
               ></div>
             )}
           </div>
         ))}
       </div>
-      <Button onClick={() => setActiveIndex(activeIndex + 1)}>Next</Button>
+      <div className="flex justify-between items-center">
+        <Button
+          disabled={activeIndex == 0}
+          onClick={() => setActiveIndex(activeIndex - 1)}
+        >
+          Previous
+        </Button>
+        {activeIndex < 2 ? (
+          <Button onClick={() => setActiveIndex(activeIndex + 1)}>Next</Button>
+        ) : (
+          <Button onClick={() => setActiveIndex(activeIndex + 1)}>
+            Generate
+          </Button>
+        )}
+      </div>
     </div>
   );
 };
