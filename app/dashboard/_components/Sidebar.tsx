@@ -45,7 +45,7 @@ const Sidebar = () => {
   const path = usePathname();
 
   return (
-    <div className="fixed h-full p-2 md:w-64 shadow-md border-r bg-white">
+    <div className="fixed h-full p-2 md:w-64 shadow-md border-r">
       <Image
         src={"/logo.png"}
         alt="logo"
