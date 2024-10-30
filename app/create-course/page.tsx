@@ -7,6 +7,8 @@ import {
   HiClipboardDocumentList,
   HiMiniSquaresPlus,
 } from "react-icons/hi2";
+import SelectCategory from "./_components/SelectCategory";
+import SelectTopic from "./_components/SelectTopic";
 
 const CreateCoursePage = () => {
   const Steppers = [
@@ -32,7 +34,7 @@ const CreateCoursePage = () => {
 
   const [activeIndex, setActiveIndex] = useState(0);
   return (
-    <div className="mt-10 p-2 md:p-5">
+    <div className="mt-20 p-2 md:p-5">
       <div className="text-3xl md:text-4xl font-semibold text-primary flex justify-center items-center">
         Create New Course
       </div>
@@ -66,20 +68,33 @@ const CreateCoursePage = () => {
           </div>
         ))}
       </div>
-      <div className="flex justify-between items-center">
-        <Button
-          disabled={activeIndex == 0}
-          onClick={() => setActiveIndex(activeIndex - 1)}
-        >
-          Previous
-        </Button>
-        {activeIndex < 2 ? (
-          <Button onClick={() => setActiveIndex(activeIndex + 1)}>Next</Button>
-        ) : (
-          <Button onClick={() => setActiveIndex(activeIndex + 1)}>
-            Generate
+      <div className="md:mx-44">
+        {activeIndex == 0 ? (
+          <div>
+            <SelectCategory />
+          </div>
+        ) : activeIndex == 1 ? (
+          <div className="md:mx-52 my-10">
+            <SelectTopic />
+          </div>
+        ) : null}
+        <div className="flex justify-between items-center">
+          <Button
+            disabled={activeIndex == 0}
+            onClick={() => setActiveIndex(activeIndex - 1)}
+          >
+            Previous
           </Button>
-        )}
+          {activeIndex < 2 ? (
+            <Button onClick={() => setActiveIndex(activeIndex + 1)}>
+              Next
+            </Button>
+          ) : (
+            <Button onClick={() => setActiveIndex(activeIndex + 1)}>
+              Generate
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );
