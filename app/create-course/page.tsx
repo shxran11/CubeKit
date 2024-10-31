@@ -9,6 +9,7 @@ import {
 } from "react-icons/hi2";
 import SelectCategory from "./_components/SelectCategory";
 import SelectTopic from "./_components/SelectTopic";
+import SelectOptions from "./_components/SelectOptions";
 
 const CreateCoursePage = () => {
   const Steppers = [
@@ -77,7 +78,11 @@ const CreateCoursePage = () => {
           <div className="md:mx-52 my-10">
             <SelectTopic />
           </div>
-        ) : null}
+        ) : (
+          <div className="md:mx-44 my-10">
+            <SelectOptions />
+          </div>
+        )}
         <div className="flex justify-between items-center">
           <Button
             disabled={activeIndex == 0}

@@ -4,7 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 const SelectTopic = () => {
   return (
     <div className="flex flex-col gap-5">
-      <div>
+      <div className="mb-4">
         <label className="text-sm font-semibold">
           Write the title of the course you want to generate.
         </label>
