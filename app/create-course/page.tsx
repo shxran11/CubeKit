@@ -1,39 +1,14 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import React, { useContext, useEffect, useState } from "react";
-import {
-  HiServerStack,
-  HiClipboardDocumentList,
-  HiMiniSquaresPlus,
-} from "react-icons/hi2";
-import SelectCategory from "./_components/SelectCategory";
-import SelectTopic from "./_components/SelectTopic";
-import SelectOptions from "./_components/SelectOptions";
+import { useContext, useEffect, useState } from "react";
 import { UserInputContext } from "../_context/UserInputContext";
+import SelectCategory from "./_components/SelectCategory";
+import SelectOptions from "./_components/SelectOptions";
+import SelectTopic from "./_components/SelectTopic";
+import { Steppers } from "../_shared/Steppers";
 
 const CreateCoursePage = () => {
-  const Steppers = [
-    {
-      id: 1,
-      name: "Category",
-      icon: <HiServerStack />,
-      path: "/create-course",
-    },
-    {
-      id: 2,
-      name: "Topic and Desc",
-      icon: <HiClipboardDocumentList />,
-      path: "/create-course/topic&desc",
-    },
-    {
-      id: 3,
-      name: "Options",
-      icon: <HiMiniSquaresPlus />,
-      path: "/create-course/options",
-    },
-  ];
-
   const [activeIndex, setActiveIndex] = useState(0);
 
   const context = useContext(UserInputContext);
@@ -48,6 +23,31 @@ const CreateCoursePage = () => {
   useEffect(() => {
     console.log(userCourseInput);
   }, [userCourseInput]);
+
+  const checkStatus = () => {
+    if (
+      activeIndex == 0 &&
+      (userCourseInput?.category?.length == 0 ||
+        userCourseInput?.category == undefined)
+    )
+      return true;
+    if (
+      activeIndex == 1 &&
+      (userCourseInput?.topic?.length == 0 ||
+        userCourseInput?.topic == undefined)
+    )
+      return true;
+    if (
+      activeIndex == 2 &&
+      (userCourseInput?.difficulty == undefined ||
+        userCourseInput?.duration == undefined ||
+        userCourseInput?.video == undefined ||
+        userCourseInput?.chapters == undefined)
+    )
+      return true;
+
+    return false;
+  };
 
   return (
     <div className="mt-20 p-2 md:p-5">
@@ -106,11 +106,17 @@ const CreateCoursePage = () => {
             Previous
           </Button>
           {activeIndex < 2 ? (
-            <Button onClick={() => setActiveIndex(activeIndex + 1)}>
+            <Button
+              onClick={() => setActiveIndex(activeIndex + 1)}
+              disabled={checkStatus()}
+            >
               Next
             </Button>
           ) : (
-            <Button onClick={() => setActiveIndex(activeIndex + 1)}>
+            <Button
+              onClick={() => setActiveIndex(activeIndex + 1)}
+              disabled={checkStatus()}
+            >
               Generate
             </Button>
           )}
