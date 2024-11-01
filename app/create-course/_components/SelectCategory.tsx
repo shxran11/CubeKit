@@ -1,3 +1,4 @@
+import { UserInputContext } from "@/app/_context/UserInputContext";
 import {
   Card,
   CardContent,
@@ -6,8 +7,25 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
+import { useContext } from "react";
 
 const SelectCategory = () => {
+  const context = useContext(UserInputContext);
+  if (!context) {
+    throw new Error(
+      "SelectCategory must be used within a UserInputContext provider"
+    );
+  }
+
+  const { userCourseInput, setUserCourseInput } = context;
+
+  const handleCategoryChange = (category: string) => {
+    setUserCourseInput((prev) => ({
+      ...prev,
+      category: category,
+    }));
+  };
+
   const CategoryList = [
     {
       id: 1,
@@ -52,12 +70,17 @@ const SelectCategory = () => {
       prompt: "",
     },
   ];
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-5 my-5">
       {CategoryList.map((item) => (
         <Card
           key={item.id}
-          className="hover:cursor-pointer hover:border-primary hover:bg-purple-100 dark:hover:bg-purple-950"
+          className={`hover:cursor-pointer hover:border-primary hover:bg-purple-100 dark:hover:bg-purple-950 ${
+            userCourseInput?.category == item.category &&
+            "border-primary bg-purple-100 dark:bg-purple-950"
+          }`}
+          onClick={() => handleCategoryChange(item.category)}
         >
           <CardHeader>
             <CardTitle>{item.category}</CardTitle>

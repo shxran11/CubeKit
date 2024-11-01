@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   HiServerStack,
   HiClipboardDocumentList,
@@ -10,6 +10,7 @@ import {
 import SelectCategory from "./_components/SelectCategory";
 import SelectTopic from "./_components/SelectTopic";
 import SelectOptions from "./_components/SelectOptions";
+import { UserInputContext } from "../_context/UserInputContext";
 
 const CreateCoursePage = () => {
   const Steppers = [
@@ -34,6 +35,20 @@ const CreateCoursePage = () => {
   ];
 
   const [activeIndex, setActiveIndex] = useState(0);
+
+  const context = useContext(UserInputContext);
+  if (!context) {
+    throw new Error(
+      "SelectCategory must be used within a UserInputContext provider"
+    );
+  }
+
+  const { userCourseInput } = context;
+
+  useEffect(() => {
+    console.log(userCourseInput);
+  }, [userCourseInput]);
+
   return (
     <div className="mt-20 p-2 md:p-5">
       <div className="text-3xl md:text-4xl font-semibold text-primary flex justify-center items-center">
