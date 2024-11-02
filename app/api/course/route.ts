@@ -9,8 +9,8 @@ export async function POST(request: NextRequest) {
     const newCourse = await prisma.courseList.create({
       data: {
         name: body.name,
-        category: body.category,
-        difficulty: body.difficulty,
+        category: body.category.toLowerCase(),
+        difficulty: body.difficulty.toLowerCase(),
         courseOutput: body.courseOutput,
         createdBy: body.createdBy,
         userProfileImage: body.userProfileImage,

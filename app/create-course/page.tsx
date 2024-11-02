@@ -9,10 +9,13 @@ import SelectTopic from "./_components/SelectTopic";
 import { Steppers } from "../_shared/Steppers";
 import { GenerateCourseLayout } from "@/configs/AiModel";
 import Loader from "./_components/Loader";
+import axios from "axios";
+import { useUser } from "@clerk/nextjs";
 
 const CreateCoursePage = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const { user } = useUser();
 
   const context = useContext(UserInputContext);
   if (!context) {
@@ -60,8 +63,29 @@ const CreateCoursePage = () => {
     const FINAL_PROMPT = BASE_PROMPT + USER_PROMPT;
     console.log(FINAL_PROMPT);
     const result = await GenerateCourseLayout.sendMessage(FINAL_PROMPT);
-    console.log(JSON.parse(result.response?.text()));
+    const parsedResponse = JSON.parse(await result.response.text());
+    console.log(parsedResponse);
+    saveCourseData(parsedResponse);
     setIsLoading(false);
+  };
+
+  const saveCourseData = async (courseOutput: JSON) => {
+    try {
+      setIsLoading(true);
+      await axios.post("/api/course", {
+        name: userCourseInput.topic,
+        category: userCourseInput.category,
+        difficulty: userCourseInput.difficulty,
+        courseOutput,
+        createdBy: user?.fullName,
+        userProfileImage: user?.imageUrl,
+      });
+      console.log("Post successful");
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Failed to save course data:", error);
+      setIsLoading(false);
+    }
   };
 
   return (
