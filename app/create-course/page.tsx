@@ -7,6 +7,7 @@ import SelectCategory from "./_components/SelectCategory";
 import SelectOptions from "./_components/SelectOptions";
 import SelectTopic from "./_components/SelectTopic";
 import { Steppers } from "../_shared/Steppers";
+import { GenerateCourseLayout } from "@/configs/AiModel";
 
 const CreateCoursePage = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -47,6 +48,16 @@ const CreateCoursePage = () => {
       return true;
 
     return false;
+  };
+
+  const GenerateCourseFormat = async () => {
+    const BASE_PROMPT =
+      "Create a course tutorial with field name as Course name, Course Description along with Chapter name, Chapter Description and Duration for each chapter, based on the following course details: ";
+    const USER_PROMPT = `Category: ${userCourseInput?.category}, Topic: ${userCourseInput?.topic}, Description: ${userCourseInput?.description}, 'Difficulty: ${userCourseInput?.difficulty}, Course Duration: ${userCourseInput?.duration},  no. of chapters: ${userCourseInput?.chapters}, in JSON format. Course duration has to be less than or equal to what is specified.`;
+    const FINAL_PROMPT = BASE_PROMPT + USER_PROMPT;
+    console.log(FINAL_PROMPT);
+    const result = await GenerateCourseLayout.sendMessage(FINAL_PROMPT);
+    console.log(JSON.parse(result.response?.text()));
   };
 
   return (
@@ -114,7 +125,7 @@ const CreateCoursePage = () => {
             </Button>
           ) : (
             <Button
-              onClick={() => setActiveIndex(activeIndex + 1)}
+              onClick={() => GenerateCourseFormat()}
               disabled={checkStatus()}
             >
               Generate
