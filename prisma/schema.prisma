@@ -1,34 +1,35 @@
-generator client {
-  provider = "prisma-client-js"
-}
+  generator client {
+    provider = "prisma-client-js"
+  }
 
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
+  datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+  }
 
-model CourseList {
-  courseId         Int        @id @default(autoincrement())
-  name             String     @db.VarChar(255)
-  category         Category
-  difficulty       Difficulty
-  courseOutput     Json
-  createdAt        DateTime   @default(now())
-  createdBy        String     @db.VarChar(255)
-  userProfileImage String     @db.VarChar(255)
-}
+  model courseList {
+    courseId         Int        @id @default(autoincrement())
+    name             String     @db.VarChar(255)
+    category         Category
+    difficulty       Difficulty
+    courseOutput     Json
+    createdAt        DateTime   @default(now())
+    createdBy        String     @db.VarChar(255)
+    userProfileImage String     @db.VarChar(255)
+  }
 
-enum Category {
-  HEALTH
-  BUSINESS
-  TECHNOLOGY
-  PROGRAMMING
-  SCIENCE
-  CREATIVE
+  enum Category {
+  health
+  business
+  technology
+  programming
+  science
+  creative
 }
 
 enum Difficulty {
-  BEGINNER
-  INTERMEDIATE
-  ADVANCE
+  beginner
+  intermediate
+  advance
 }
+
