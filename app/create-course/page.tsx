@@ -14,7 +14,7 @@ import { useUser } from "@clerk/nextjs";
 
 const CreateCoursePage = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { user } = useUser();
 
   const context = useContext(UserInputContext);
