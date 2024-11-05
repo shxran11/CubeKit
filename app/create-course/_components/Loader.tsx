@@ -24,7 +24,7 @@ const Loader = ({ loading }: { loading: boolean }) => {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className="text-sm text-gray-400">
-          Please wait while we generate course information..
+          Please wait.. while we generate course information..
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
