@@ -8,7 +8,7 @@
   }
 
   model courseList {
-    courseId         Int        @id @default(autoincrement())
+    courseId         String     @db.VarChar(255) @id @unique
     name             String     @db.VarChar(255)
     category         Category
     difficulty       Difficulty

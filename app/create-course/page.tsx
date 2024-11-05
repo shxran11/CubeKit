@@ -11,11 +11,14 @@ import { GenerateCourseLayout } from "@/configs/AiModel";
 import Loader from "./_components/Loader";
 import axios from "axios";
 import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import { v4 as uuidv4 } from "uuid";
 
 const CreateCoursePage = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useUser();
+  const router = useRouter();
 
   const context = useContext(UserInputContext);
   if (!context) {
@@ -71,8 +74,10 @@ const CreateCoursePage = () => {
 
   const saveCourseData = async (courseOutput: JSON) => {
     try {
+      const id = uuidv4();
       setIsLoading(true);
       await axios.post("/api/course", {
+        courseId: id,
         name: userCourseInput.topic,
         category: userCourseInput.category,
         difficulty: userCourseInput.difficulty,
@@ -80,8 +85,10 @@ const CreateCoursePage = () => {
         createdBy: user?.fullName,
         userProfileImage: user?.imageUrl,
       });
+
       console.log("Post successful");
       setIsLoading(false);
+      router.push(`/create-course/` + id);
     } catch (error) {
       console.error("Failed to save course data:", error);
       setIsLoading(false);

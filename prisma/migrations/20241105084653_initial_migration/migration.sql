@@ -6,7 +6,7 @@ CREATE TYPE "Difficulty" AS ENUM ('beginner', 'intermediate', 'advance');
 
 -- CreateTable
 CREATE TABLE "courseList" (
-    "courseId" SERIAL NOT NULL,
+    "courseId" VARCHAR(255) NOT NULL,
     "name" VARCHAR(255) NOT NULL,
     "category" "Category" NOT NULL,
     "difficulty" "Difficulty" NOT NULL,
@@ -17,3 +17,6 @@ CREATE TABLE "courseList" (
 
     CONSTRAINT "courseList_pkey" PRIMARY KEY ("courseId")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "courseList_courseId_key" ON "courseList"("courseId");

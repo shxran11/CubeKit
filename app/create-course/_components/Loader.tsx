@@ -20,6 +20,7 @@ const Loader = ({ loading }: { loading: boolean }) => {
               alt="Loader"
               width={150}
               height={150}
+              unoptimized
             />
           </AlertDialogDescription>
         </AlertDialogHeader>
