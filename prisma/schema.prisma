@@ -1,24 +1,25 @@
-  generator client {
-    provider = "prisma-client-js"
-  }
+generator client {
+  provider = "prisma-client-js"
+}
 
-  datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
-  }
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
 
-  model courseList {
-    courseId         String     @db.VarChar(255) @id @unique
-    name             String     @db.VarChar(255)
-    category         Category
-    difficulty       Difficulty
-    courseOutput     Json
-    createdAt        DateTime   @default(now())
-    createdBy        String     @db.VarChar(255)
-    userProfileImage String     @db.VarChar(255)
-  }
+model courseList {
+  courseId         String     @id @unique @db.VarChar(255)
+  name             String     @db.VarChar(255)
+  category         Category
+  difficulty       Difficulty
+  includeVideo     String     @default("Yes") @db.VarChar(25)
+  courseOutput     Json
+  createdAt        DateTime   @default(now())
+  createdBy        String     @db.VarChar(255)
+  userProfileImage String     @db.VarChar(255)
+}
 
-  enum Category {
+enum Category {
   health
   business
   technology
@@ -32,4 +33,3 @@ enum Difficulty {
   intermediate
   advance
 }
-
