@@ -20,16 +20,16 @@ model courseList {
 }
 
 enum Category {
-  health
-  business
-  technology
-  programming
-  science
-  creative
+  Health
+  Business
+  Technology
+  Programming
+  Science
+  Creative
 }
 
 enum Difficulty {
-  beginner
-  intermediate
-  advance
+  Beginner
+  Intermediate
+  Advance
 }

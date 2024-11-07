@@ -10,8 +10,9 @@ export async function POST(request: NextRequest) {
       data: {
         courseId: body.courseId,
         name: body.name,
-        category: body.category.toLowerCase(),
-        difficulty: body.difficulty.toLowerCase(),
+        category: body.category,
+        difficulty: body.difficulty,
+        includeVideo: body.includeVideo,
         courseOutput: body.courseOutput,
         createdBy: body.createdBy,
         userProfileImage: body.userProfileImage,
