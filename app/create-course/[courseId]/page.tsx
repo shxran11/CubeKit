@@ -5,16 +5,37 @@ import { useUser } from "@clerk/nextjs";
 import BasicInfo from "./_components/BasicInfo";
 import CourseDetails from "./_components/CourseDetails";
 import ChapterDetails from "./_components/ChapterDetails";
+import { Difficulty } from "@prisma/client";
 
-const CourseLayoutPage = ({ params }: { params: { courseId: string } }) => {
+export interface courseOutput {
+  Chapters: Array<{
+    "Chapter Name": string;
+    "Chapter Description": string;
+    Duration: string;
+  }>;
+  "Course Description": string;
+  "Course Duration": string;
+  "Course Name": string;
+  Difficulty: Difficulty;
+}
+
+interface Props {
+  params: { courseId: string };
+}
+
+const CourseLayoutPage = ({ params }: Props) => {
   const [course, setCourse] = useState(null);
+  const [output, setOutput] = useState<courseOutput | undefined>(undefined); // Ensure output can be undefined initially
   const { user } = useUser();
 
   const getCourse = async () => {
     try {
       if (user) {
         const result = await axios.get(`/api/course/${params.courseId}`);
-        if (result) setCourse(result.data);
+        if (result) {
+          setCourse(result.data);
+          setOutput(result.data.courseOutput);
+        }
         console.log(result.data);
       }
     } catch (error) {
@@ -34,9 +55,9 @@ const CourseLayoutPage = ({ params }: { params: { courseId: string } }) => {
           Course Layout
         </h1>
       </div>
-      <BasicInfo course={course} />
+      <BasicInfo course={course} output={output} />
       <CourseDetails course={course} />
-      <ChapterDetails course={course} />
+      <ChapterDetails output={output} />
     </div>
   );
 };
