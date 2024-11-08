@@ -4,7 +4,7 @@ import { UserButton } from "@clerk/nextjs";
 const DashboardHeader = () => {
   return (
     <div className="top-0 left-0 w-full z-10 backdrop-blur-md">
-      <div className="m-2 shadow-md">
+      <div className="m-2 shadow-md dark:shadow-gray-900">
         <div className="flex justify-between items-center mb-1 mr-3">
           <div className="flex flex-row items-center ml-3">
             <svg

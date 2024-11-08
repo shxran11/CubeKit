@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useUser } from "@clerk/nextjs";
 import BasicInfo from "./_components/BasicInfo";
+import CourseDetails from "./_components/CourseDetails";
 
 const CourseLayoutPage = ({ params }: { params: { courseId: string } }) => {
   const [course, setCourse] = useState(null);
@@ -33,6 +34,7 @@ const CourseLayoutPage = ({ params }: { params: { courseId: string } }) => {
         </h1>
       </div>
       <BasicInfo course={course} />
+      <CourseDetails course={course} />
     </div>
   );
 };
