@@ -4,7 +4,7 @@ import Image from "next/image";
 import { FaPuzzlePiece } from "react-icons/fa6";
 import EditBasicInfo from "./EditBasicInfo";
 import { courseOutput } from "../page";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Props {
   course: courseList | null;
@@ -15,7 +15,13 @@ const BasicInfo = ({ course, output }: Props) => {
   const [name, setName] = useState(course?.name);
   const [desc, setDesc] = useState(output?.["Course Description"]);
 
+  useEffect(() => {
+    if (course) setName(course.name);
+    if (output) setDesc(output["Course Description"]);
+  }, [course, output]);
+
   const handleUpdate = (updatedName: string, updatedDesc: string) => {
+    console.log("Updating name and description:", updatedName, updatedDesc);
     setName(updatedName);
     setDesc(updatedDesc);
   };

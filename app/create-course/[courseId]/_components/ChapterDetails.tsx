@@ -1,8 +1,17 @@
 import { HiOutlineClock } from "react-icons/hi2";
 import { courseOutput } from "../page";
+import EditChapterDetails from "./EditChapterDetails";
+import { courseList } from "@prisma/client";
 
-const ChapterDetails = ({ output }: { output?: courseOutput }) => {
+const ChapterDetails = ({
+  output,
+  course,
+}: {
+  output?: courseOutput;
+  course: courseList | null;
+}) => {
   const chapters = output?.Chapters;
+
   return (
     <div className="lg:mx-48 mt-5">
       <h2 className="text-2xl font-semibold">Chapters</h2>
@@ -13,7 +22,14 @@ const ChapterDetails = ({ output }: { output?: courseOutput }) => {
               {index + 1}
             </p>
             <div className="flex flex-col gap-1">
-              <p className="text-lg font-semibold">{chapter["Chapter Name"]}</p>
+              <p className="text-lg font-semibold flex items-center gap-2">
+                {chapter["Chapter Name"]}{" "}
+                <EditChapterDetails
+                  course={course}
+                  output={output}
+                  index={index}
+                />
+              </p>
               <p className="text-sm text-gray-500">
                 {chapter["Chapter Description"]}
               </p>

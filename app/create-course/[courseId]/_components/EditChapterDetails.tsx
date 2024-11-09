@@ -1,5 +1,6 @@
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -9,82 +10,79 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { courseList } from "@prisma/client";
-import { DialogClose } from "@radix-ui/react-dialog";
-import { FaEdit } from "react-icons/fa";
+import { FaRegEdit } from "react-icons/fa";
 import { courseOutput } from "../page";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { courseList } from "@prisma/client";
 import { useRouter } from "next/navigation";
 
 interface Props {
   course: courseList | null;
-  output?: courseOutput | null;
-  onUpdate: (name: string, desc: string) => void;
+  output?: courseOutput;
+  index: number;
 }
 
-const EditBasicInfo = ({ course, output, onUpdate }: Props) => {
-  const [name, setName] = useState(course?.name || "");
-  const [desc, setDesc] = useState(output?.["Course Description"] || "");
+const EditChapterDetails = ({ course, output, index }: Props) => {
+  const chapters = output?.Chapters;
+  const [name, setName] = useState(
+    chapters ? chapters[index]?.["Chapter Name"] : ""
+  );
+  const [desc, setDesc] = useState(
+    chapters ? chapters[index]?.["Chapter Description"] : ""
+  );
+
   const router = useRouter();
 
   useEffect(() => {
-    if (course) setName(course.name);
-    if (output) setDesc(output["Course Description"]);
-  }, [course, output]);
+    if (chapters) setName(chapters[index]["Chapter Name"]);
+    if (chapters) setDesc(chapters[index]["Chapter Description"]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chapters]);
 
   const onUpdateHandler = async () => {
-    if (output) {
-      output["Course Name"] = name;
-      output["Course Description"] = desc;
+    if (chapters) {
+      chapters[index]["Chapter Name"] = name;
+      chapters[index]["Chapter Description"] = desc;
     }
     try {
       const result = await axios.patch(`/api/course/${course?.courseId}`, {
         courseOutput: {
           ...output,
-          "Course Description": desc,
-          "Course Name": name,
+          Chapters: chapters,
         },
       });
       console.log("API Response:", result.data);
 
-      if (result.data) {
-        const updatedName = result.data.name || name;
-        const updatedDesc = result.data.output?.["Course Description"] || desc;
-
-        onUpdate(updatedName, updatedDesc);
-      }
       router.refresh();
     } catch (error) {
-      console.log(error);
+      console.error("Update error:", error);
     }
   };
 
   return (
     <Dialog>
       <DialogTrigger>
-        <FaEdit />
+        <FaRegEdit />
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="mb-5">
-            Edit Course Title & Description
-          </DialogTitle>
+          <DialogTitle className="mb-5">Edit Course Details</DialogTitle>
           <DialogDescription>
             <label className="text-md text-black dark:text-white font-medium mt-6">
-              Title
+              Chapter Title
             </label>
             <Input
-              value={name}
-              onChange={(event) => setName(event.target.value)}
               className="mb-4"
+              defaultValue={name}
+              onChange={(event) => setName(event.target.value)}
             />
             <label className="text-md text-black dark:text-white font-medium mt-6">
-              Description
+              Chapter Description
             </label>
             <Textarea
-              value={desc}
               className="h-32"
+              defaultValue={desc}
               onChange={(event) => setDesc(event.target.value)}
             />
           </DialogDescription>
@@ -102,4 +100,4 @@ const EditBasicInfo = ({ course, output, onUpdate }: Props) => {
   );
 };
 
-export default EditBasicInfo;
+export default EditChapterDetails;

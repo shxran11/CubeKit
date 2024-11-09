@@ -34,7 +34,6 @@ export async function PATCH(
   const updatedCourse = await prisma.courseList.update({
     where: { courseId: params.id },
     data: {
-      name: body.name,
       courseOutput: body.courseOutput,
     },
   });

@@ -57,7 +57,7 @@ const CourseLayoutPage = ({ params }: Props) => {
       </div>
       <BasicInfo course={course} output={output} />
       <CourseDetails course={course} />
-      <ChapterDetails output={output} />
+      <ChapterDetails course={course} output={output} />
     </div>
   );
 };
