@@ -46,7 +46,6 @@ const EditBasicInfo = ({ course, output, onUpdate }: Props) => {
           "Course Name": name,
         },
       });
-      console.log("API Response:", result.data);
 
       if (result.data) {
         const updatedName = result.data.name || name;

@@ -5,6 +5,9 @@ import { FaPuzzlePiece } from "react-icons/fa6";
 import EditBasicInfo from "./EditBasicInfo";
 import { courseOutput } from "../page";
 import { useEffect, useState } from "react";
+import axios from "axios";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "@/configs/FirebaseConfig";
 
 interface Props {
   course: courseList | null;
@@ -12,18 +15,45 @@ interface Props {
 }
 
 const BasicInfo = ({ course, output }: Props) => {
-  const [name, setName] = useState(course?.name);
-  const [desc, setDesc] = useState(output?.["Course Description"]);
+  const [name, setName] = useState(output?.["Course Name"] || "");
+  const [desc, setDesc] = useState(output?.["Course Description"] || "");
 
   useEffect(() => {
-    if (course) setName(course.name);
-    if (output) setDesc(output["Course Description"]);
-  }, [course, output]);
+    if (output) {
+      setName(output["Course Name"]);
+      setDesc(output["Course Description"]);
+    }
+    const savedImage = localStorage.getItem("selectedImage");
+    if (savedImage) {
+      setSelectedFile(savedImage);
+    }
+  }, [output]);
 
   const handleUpdate = (updatedName: string, updatedDesc: string) => {
-    console.log("Updating name and description:", updatedName, updatedDesc);
     setName(updatedName);
     setDesc(updatedDesc);
+  };
+
+  const [selectedFile, setSelectedFile] = useState<string | undefined>();
+
+  const onFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files![0];
+    setSelectedFile(URL.createObjectURL(file));
+
+    const filename = Date.now() + ".jpg";
+    const storageRef = ref(storage, "ai-course/" + filename);
+    await uploadBytes(storageRef, file)
+      .then(() => {
+        console.log("File Upload Complete.");
+      })
+      .then(() => {
+        getDownloadURL(storageRef).then(async (downloadUrl) => {
+          console.log(downloadUrl);
+          await axios.patch(`/api/saveImage/${course?.courseId}`, {
+            imageUrl: downloadUrl,
+          });
+        });
+      });
   };
 
   return (
@@ -44,14 +74,22 @@ const BasicInfo = ({ course, output }: Props) => {
           </p>
           <Button className="w-full mt-5">Start</Button>
         </div>
-        <div className="p-5 md:p-10 pt-0 md:pt-10 flex flex-row items-center justify-center">
-          <Image
-            src="/image_placeholder.png"
-            alt="placeholder"
-            width={200}
-            height={200}
-            className="w-full rounded-xl md:h-[250px]"
-          />
+        <div className="mx-6 mt-6 overflow-hidden">
+          <label htmlFor="upload-image" className="w-full">
+            <Image
+              src={selectedFile ? selectedFile : "/image_placeholder.png"}
+              alt="placeholder"
+              width={200}
+              height={200}
+              className="w-full rounded-xl h-[250px] object-cover cursor-pointer"
+            />
+            <input
+              type="file"
+              id="upload-image"
+              className="opacity-0"
+              onChange={onFileChange}
+            />
+          </label>
         </div>
       </div>
     </div>

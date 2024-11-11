@@ -17,6 +17,8 @@ model courseList {
   createdAt        DateTime   @default(now())
   createdBy        String     @db.VarChar(255)
   userProfileImage String     @db.VarChar(255)
+  imageUrl         String     @default("/image_placeholder.png") @db.VarChar(255)
+  published        Boolean    @default(false)
 }
 
 enum Category {
