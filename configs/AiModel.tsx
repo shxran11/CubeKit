@@ -36,3 +36,25 @@ export const GenerateCourseLayout = model.startChat({
     },
   ],
 });
+
+export const GenerateChapterContent_AI = model.startChat({
+  generationConfig,
+  history: [
+    {
+      role: "user",
+      parts: [
+        {
+          text: "Explain the concept in detail on the single Chapter: Introduction to Python, from the Topic: Python Programming Bootcamp, in JSON format with field names as Title, Description on given chapter in detail, Code Example(code in <precode> format), if applicable. ",
+        },
+      ],
+    },
+    {
+      role: "model",
+      parts: [
+        {
+          text: '```json\n{\n  "Title": "Introduction to Python",\n  "Description": "This chapter introduces the fundamentals of Python programming, setting the stage for your journey into this versatile language. You\'ll discover the core concepts of Python, including its history, syntax, and why it\'s so popular. We\'ll cover basic data types, variables, operators, and how to write your first simple Python programs. This chapter is designed to provide a solid foundation for understanding the language and its capabilities, setting you up for success in later chapters.",\n  "Code Example": "<precode>\\n# This is a comment in Python\\nprint(\\"Hello, World!\\")\\n\\n# Variable declaration and assignment\\nmessage = \\"Welcome to Python!\\"\\nprint(message)\\n\\n# Data types\\nnumber = 10\\nstring = \\"This is a string\\"\\nboolean = True\\n\\n# Arithmetic operations\\nresult = number + 5\\nprint(result)\\n</precode>"\n}\n```',
+        },
+      ],
+    },
+  ],
+});

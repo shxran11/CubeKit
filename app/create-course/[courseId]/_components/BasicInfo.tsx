@@ -19,13 +19,26 @@ const BasicInfo = ({ course, output }: Props) => {
   const [desc, setDesc] = useState(output?.["Course Description"] || "");
 
   useEffect(() => {
+    const fetchImageUrl = async () => {
+      if (course?.courseId) {
+        try {
+          const response = await axios.get(`/api/saveImage/${course.courseId}`);
+          const imageUrl = response.data.imageUrl;
+          if (imageUrl) {
+            setSelectedFile(imageUrl); // Set the fetched URL here
+          }
+        } catch (error) {
+          console.error("Error fetching image URL:", error);
+        }
+      }
+    };
+
+    fetchImageUrl();
+
+    // Set name and description after the image URL
     if (output) {
       setName(output["Course Name"]);
       setDesc(output["Course Description"]);
-    }
-    const savedImage = localStorage.getItem("selectedImage");
-    if (savedImage) {
-      setSelectedFile(savedImage);
     }
   }, [output]);
 
@@ -77,6 +90,7 @@ const BasicInfo = ({ course, output }: Props) => {
         <div className="mx-6 mt-6 overflow-hidden">
           <label htmlFor="upload-image" className="w-full">
             <Image
+              key={selectedFile}
               src={selectedFile ? selectedFile : "/image_placeholder.png"}
               alt="placeholder"
               width={200}

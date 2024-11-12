@@ -6,6 +6,7 @@ import BasicInfo from "./_components/BasicInfo";
 import CourseDetails from "./_components/CourseDetails";
 import ChapterDetails from "./_components/ChapterDetails";
 import { Difficulty } from "@prisma/client";
+import GenerateContentButton from "./_components/GenerateContentButton";
 
 export interface courseOutput {
   Chapters: Array<{
@@ -58,6 +59,7 @@ const CourseLayoutPage = ({ params }: Props) => {
       <BasicInfo course={course} output={output} />
       <CourseDetails course={course} />
       <ChapterDetails course={course} output={output} />
+      <GenerateContentButton course={course} output={output} />
     </div>
   );
 };
