@@ -31,11 +31,14 @@ export async function PATCH(
     return NextResponse.json({ error: "Invalid issue" }, { status: 404 });
   }
 
+  const updateData: { courseOutput?: string; publish?: boolean } = {};
+  if (body.courseOutput !== undefined)
+    updateData.courseOutput = body.courseOutput;
+  if (body.publish !== undefined) updateData.publish = body.publish;
+
   const updatedCourse = await prisma.courseList.update({
     where: { courseId: params.id },
-    data: {
-      courseOutput: body.courseOutput,
-    },
+    data: updateData,
   });
 
   return NextResponse.json(updatedCourse, { status: 200 });

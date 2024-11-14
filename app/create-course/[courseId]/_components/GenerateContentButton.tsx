@@ -48,6 +48,9 @@ const GenerateContentButton = ({ course, output }: Props) => {
             });
           })
         );
+        await axios.patch(`/api/course/${course?.courseId}`, {
+          publish: true,
+        });
         router.push(`/create-course/${course?.courseId}/finish`);
       } catch (error) {
         console.error("Error generating chapter content:", error);

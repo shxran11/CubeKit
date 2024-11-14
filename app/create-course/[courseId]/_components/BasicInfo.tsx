@@ -40,6 +40,7 @@ const BasicInfo = ({ course, output }: Props) => {
       setName(output["Course Name"]);
       setDesc(output["Course Description"]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [output]);
 
   const handleUpdate = (updatedName: string, updatedDesc: string) => {

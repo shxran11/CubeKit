@@ -26,7 +26,7 @@ interface Props {
 
 const CourseLayoutPage = ({ params }: Props) => {
   const [course, setCourse] = useState(null);
-  const [output, setOutput] = useState<courseOutput | undefined>(undefined); // Ensure output can be undefined initially
+  const [output, setOutput] = useState<courseOutput | undefined>(undefined);
   const { user } = useUser();
 
   const getCourse = async () => {

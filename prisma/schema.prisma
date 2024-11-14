@@ -24,8 +24,8 @@ model courseList {
 }
 
 model chapters {
-  id        Int    @default(autoincrement())
-  chapterId Int    @id
+  id        Int    @id @default(autoincrement())
+  chapterId Int    
   courseId  String
   content   Json
   videoId   String @db.VarChar(255) 
