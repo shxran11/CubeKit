@@ -82,7 +82,7 @@ const CreateCoursePage = () => {
         category: userCourseInput.category,
         difficulty: userCourseInput.difficulty,
         courseOutput,
-        createdBy: user?.emailAddresses,
+        createdBy: user?.primaryEmailAddress?.emailAddress,
         userProfileImage: user?.imageUrl,
       });
 

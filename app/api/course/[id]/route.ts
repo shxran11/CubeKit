@@ -31,10 +31,10 @@ export async function PATCH(
     return NextResponse.json({ error: "Invalid issue" }, { status: 404 });
   }
 
-  const updateData: { courseOutput?: string; publish?: boolean } = {};
+  const updateData: { courseOutput?: string; published?: boolean } = {};
   if (body.courseOutput !== undefined)
     updateData.courseOutput = body.courseOutput;
-  if (body.publish !== undefined) updateData.publish = body.publish;
+  if (body.published !== undefined) updateData.published = body.published;
 
   const updatedCourse = await prisma.courseList.update({
     where: { courseId: params.id },

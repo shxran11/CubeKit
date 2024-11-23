@@ -49,7 +49,7 @@ const GenerateContentButton = ({ course, output }: Props) => {
           })
         );
         await axios.patch(`/api/course/${course?.courseId}`, {
-          publish: true,
+          published: true,
         });
         router.push(`/create-course/${course?.courseId}/finish`);
       } catch (error) {
