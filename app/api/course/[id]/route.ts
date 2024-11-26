@@ -43,3 +43,14 @@ export async function PATCH(
 
   return NextResponse.json(updatedCourse, { status: 200 });
 }
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const updatedCourse = await prisma.courseList.delete({
+    where: { courseId: params.id },
+  });
+
+  return NextResponse.json(updatedCourse, { status: 200 });
+}

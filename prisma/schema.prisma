@@ -30,7 +30,7 @@ model chapters {
   content   Json
   videoId   String @db.VarChar(255) 
 
-  course courseList @relation(fields: [courseId], references: [courseId])
+  course courseList @relation(fields: [courseId], references: [courseId], onDelete: Cascade)
 }
 
 enum Category {

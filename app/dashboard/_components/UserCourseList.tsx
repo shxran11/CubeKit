@@ -39,12 +39,20 @@ const UserCourseList = () => {
     }
   };
 
-  const handleOnDelete = () => {};
+  const handleOnDelete = async (courseId: string) => {
+    try {
+      await axios.delete(`/api/course/${courseId}`);
+      setCourses((prevCourses) =>
+        prevCourses.filter((course) => course.courseId !== courseId)
+      );
+    } catch (error) {
+      console.log("Error deleting course");
+    }
+  };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       {courses.map((course) => {
-        // Parse courseOutput if it's stored as a JSON string in the database
         const output =
           typeof course.courseOutput === "string"
             ? JSON.parse(course.courseOutput)
@@ -65,7 +73,11 @@ const UserCourseList = () => {
               <div>
                 <div className="flex items-center justify-between">
                   <CardTitle>{output["Course Name"]}</CardTitle>
-                  <DeleteCourseButton handleOnDelete={handleOnDelete}>
+                  <DeleteCourseButton
+                    handleOnDelete={() => {
+                      handleOnDelete(course.courseId);
+                    }}
+                  >
                     <SlOptionsVertical className="hover:cursor-pointer" />
                   </DeleteCourseButton>
                 </div>
