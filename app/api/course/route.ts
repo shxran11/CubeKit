@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
+import { getAuth, clerkClient } from "@clerk/nextjs/server";
 
 const prisma = new PrismaClient();
 
@@ -27,4 +28,23 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
+}
+
+export async function GET(request: NextRequest) {
+  const { userId } = getAuth(request);
+  const user = await clerkClient.users.getUser(userId!);
+  const email = user?.emailAddresses?.[0]?.emailAddress;
+
+  const courses = await prisma.courseList.findMany({
+    where: { createdBy: email },
+  });
+
+  if (!courses || courses.length === 0) {
+    return NextResponse.json(
+      { error: "No courses found for this user" },
+      { status: 404 }
+    );
+  }
+
+  return NextResponse.json(courses, { status: 200 });
 }
