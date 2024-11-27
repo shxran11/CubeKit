@@ -3,7 +3,7 @@
 import { useUser } from "@clerk/nextjs";
 import { courseList } from "@prisma/client";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -18,10 +18,12 @@ import { IoBook } from "react-icons/io5";
 import { Badge } from "@/components/ui/badge";
 import { SlOptionsVertical } from "react-icons/sl";
 import DeleteCourseButton from "./DeleteCourseButton";
+import { UserCourseListContext } from "@/app/_context/UserCourseListContext";
 
 const UserCourseList = () => {
   const { user, isLoaded } = useUser();
   const [courses, setCourses] = useState<courseList[]>([]);
+  const { setUserCourseList } = useContext(UserCourseListContext);
 
   useEffect(() => {
     if (isLoaded && user) {
@@ -33,7 +35,9 @@ const UserCourseList = () => {
   const getUserCourses = async () => {
     try {
       const result = await axios.get("/api/course");
-      setCourses(result.data); // Ensure the API returns an array of courses
+      const courses = result.data;
+      setCourses(courses);
+      setUserCourseList(courses);
     } catch (error) {
       console.error("Error fetching user courses:", error);
     }

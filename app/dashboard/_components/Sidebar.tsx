@@ -1,8 +1,10 @@
 "use client";
 
+import { UserCourseListContext } from "@/app/_context/UserCourseListContext";
 import { Progress } from "@/components/ui/progress";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useContext } from "react";
 import { HiOutlineLogout } from "react-icons/hi";
 import { HiGlobeAlt } from "react-icons/hi2";
 import { IoHomeOutline } from "react-icons/io5";
@@ -41,6 +43,8 @@ const Sidebar = () => {
   ];
 
   const path = usePathname();
+  const { userCourseList } = useContext(UserCourseListContext);
+  const length = userCourseList?.length;
 
   return (
     <div className="fixed h-full md:w-64 shadow-md border-r">
@@ -99,9 +103,9 @@ const Sidebar = () => {
           </Link>
         ))}
       </ul>
-      <div className="absolute bottom-10 w-[90%]">
-        <Progress value={33} />
-        <p className="text-sm my-2">2 out of 5 courses generated</p>
+      <div className="m-2 absolute bottom-10 w-[90%]">
+        <Progress value={(length / 5) * 100} />
+        <p className="text-sm my-2">{length} out of 5 courses generated</p>
         <p className="text-xs text-gray-600">
           Upgrade your plan for unlimited course generation.
         </p>
