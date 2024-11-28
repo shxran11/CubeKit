@@ -40,7 +40,7 @@ const FinalCoursePage = ({ params }: Props) => {
       <h2 className="text-center text-2xl text-primary font-semibold">
         Congratulations! Your course is ready!
       </h2>
-      <BasicInfo course={course} output={output} />
+      <BasicInfo course={course} output={output} edit={false} />
     </div>
   );
 };
