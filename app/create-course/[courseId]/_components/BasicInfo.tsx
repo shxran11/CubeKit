@@ -12,9 +12,10 @@ import { storage } from "@/configs/FirebaseConfig";
 interface Props {
   course: courseList | null;
   output?: courseOutput;
+  edit: boolean;
 }
 
-const BasicInfo = ({ course, output }: Props) => {
+const BasicInfo = ({ course, output, edit }: Props) => {
   const [name, setName] = useState(output?.["Course Name"] || "");
   const [desc, setDesc] = useState(output?.["Course Description"] || "");
 
@@ -76,17 +77,21 @@ const BasicInfo = ({ course, output }: Props) => {
         <div className="p-5 md:p-10">
           <h2 className="text-2xl font-bold mb-3 flex items-center gap-3">
             {name}{" "}
-            <EditBasicInfo
-              course={course}
-              output={output}
-              onUpdate={handleUpdate}
-            />
+            {edit && (
+              <EditBasicInfo
+                course={course}
+                output={output}
+                onUpdate={handleUpdate}
+              />
+            )}
           </h2>
           <p className="text-md text-gray-500">{desc}</p>
           <p className="flex flex-row items-center text-md gap-2 mt-3 text-primary font-semibold">
             <FaPuzzlePiece /> {course?.category}
           </p>
-          <Button className="w-full mt-5">Start</Button>
+          <Button className="w-full mt-5" disabled={edit}>
+            Start
+          </Button>
         </div>
         <div className="mx-6 mt-6 overflow-hidden">
           <label htmlFor="upload-image" className="w-full">

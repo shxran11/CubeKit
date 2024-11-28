@@ -56,9 +56,9 @@ const CourseLayoutPage = ({ params }: Props) => {
           Course Layout
         </h1>
       </div>
-      <BasicInfo course={course} output={output} />
+      <BasicInfo course={course} output={output} edit={true} />
       <CourseDetails course={course} />
-      <ChapterDetails course={course} output={output} />
+      <ChapterDetails course={course} output={output} edit={true} />
       <GenerateContentButton course={course} output={output} />
     </div>
   );

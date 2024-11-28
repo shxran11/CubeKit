@@ -19,6 +19,7 @@ import { Badge } from "@/components/ui/badge";
 import { SlOptionsVertical } from "react-icons/sl";
 import DeleteCourseButton from "./DeleteCourseButton";
 import { UserCourseListContext } from "@/app/_context/UserCourseListContext";
+import Link from "next/link";
 
 const UserCourseList = () => {
   const { user, isLoaded } = useUser();
@@ -63,7 +64,8 @@ const UserCourseList = () => {
             : course.courseOutput;
 
         return (
-          <div
+          <Link
+            href={`/course/${course.courseId}`}
             key={course.courseId}
             className="hover:cursor-pointer transform transition-transform duration-300 hover:scale-105"
           >
@@ -118,7 +120,7 @@ const UserCourseList = () => {
                 <DifficultyBadge difficulty={course.difficulty} />
               </CardFooter>
             </Card>
-          </div>
+          </Link>
         );
       })}
     </div>

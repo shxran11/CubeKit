@@ -3,13 +3,13 @@ import { courseOutput } from "../page";
 import EditChapterDetails from "./EditChapterDetails";
 import { courseList } from "@prisma/client";
 
-const ChapterDetails = ({
-  output,
-  course,
-}: {
-  output?: courseOutput;
+interface Props {
   course: courseList | null;
-}) => {
+  output?: courseOutput;
+  edit: boolean;
+}
+
+const ChapterDetails = ({ course, output, edit }: Props) => {
   const chapters = output?.Chapters;
 
   return (
@@ -24,11 +24,13 @@ const ChapterDetails = ({
             <div className="flex flex-col gap-1">
               <p className="text-lg font-semibold flex items-center gap-2">
                 {chapter["Chapter Name"]}{" "}
-                <EditChapterDetails
-                  course={course}
-                  output={output}
-                  index={index}
-                />
+                {edit && (
+                  <EditChapterDetails
+                    course={course}
+                    output={output}
+                    index={index}
+                  />
+                )}
               </p>
               <p className="text-sm text-gray-500">
                 {chapter["Chapter Description"]}
