@@ -63,53 +63,62 @@ const UserCourseList = () => {
             : course.courseOutput;
 
         return (
-          <Card key={course.courseId}>
-            <CardHeader>
-              <Image
-                src={course.imageUrl}
-                alt="course banner"
-                width={100}
-                height={100}
-                className="w-full h-auto rounded-sm"
-              />
-            </CardHeader>
-            <CardContent>
-              <div>
-                <div className="flex items-center justify-between">
-                  <CardTitle>{output["Course Name"]}</CardTitle>
-                  <DeleteCourseButton
-                    handleOnDelete={() => {
-                      handleOnDelete(course.courseId);
-                    }}
+          <div
+            key={course.courseId}
+            className="hover:cursor-pointer transform transition-transform duration-300 hover:scale-105"
+          >
+            <Card>
+              <CardHeader>
+                <Image
+                  src={course.imageUrl}
+                  alt="course banner"
+                  width={100}
+                  height={100}
+                  className="w-full h-auto rounded-sm"
+                />
+              </CardHeader>
+              <CardContent>
+                <div>
+                  <div className="flex items-center justify-between">
+                    <CardTitle>{output["Course Name"]}</CardTitle>
+                    <DeleteCourseButton
+                      handleOnDelete={() => {
+                        handleOnDelete(course.courseId);
+                      }}
+                    >
+                      <SlOptionsVertical className="hover:cursor-pointer" />
+                    </DeleteCourseButton>
+                  </div>
+                  <Badge
+                    className="text-sm text-gray-400 mt-2"
+                    variant="outline"
                   >
-                    <SlOptionsVertical className="hover:cursor-pointer" />
-                  </DeleteCourseButton>
+                    {course.category}
+                  </Badge>
+                  <CardDescription className="mt-4">
+                    {output["Course Description"].slice(0, 100) + "..."}
+                  </CardDescription>
                 </div>
-                <Badge className="text-sm text-gray-400 mt-2" variant="outline">
-                  {course.category}
+              </CardContent>
+              <CardFooter className="flex justify-between items-center">
+                <Badge variant="outline">
+                  <p className=" flex gap-1 items-center text-sm text-primary">
+                    {" "}
+                    <IoBook />
+                    {course?.courseOutput &&
+                    Array.isArray(
+                      (course.courseOutput as { Chapters: [] }).Chapters
+                    )
+                      ? (course.courseOutput as { Chapters: [] }).Chapters
+                          .length
+                      : 0}{" "}
+                    chapters
+                  </p>
                 </Badge>
-                <CardDescription className="mt-4">
-                  {output["Course Description"].slice(0, 100) + "..."}
-                </CardDescription>
-              </div>
-            </CardContent>
-            <CardFooter className="flex justify-between items-center">
-              <Badge variant="outline">
-                <p className=" flex gap-1 items-center text-sm text-primary">
-                  {" "}
-                  <IoBook />
-                  {course?.courseOutput &&
-                  Array.isArray(
-                    (course.courseOutput as { Chapters: [] }).Chapters
-                  )
-                    ? (course.courseOutput as { Chapters: [] }).Chapters.length
-                    : 0}{" "}
-                  chapters
-                </p>
-              </Badge>
-              <DifficultyBadge difficulty={course.difficulty} />
-            </CardFooter>
-          </Card>
+                <DifficultyBadge difficulty={course.difficulty} />
+              </CardFooter>
+            </Card>
+          </div>
         );
       })}
     </div>
