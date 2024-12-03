@@ -3,10 +3,9 @@ import BasicInfo from "@/app/create-course/[courseId]/_components/BasicInfo";
 import ChapterDetails from "@/app/create-course/[courseId]/_components/ChapterDetails";
 import CourseDetails from "@/app/create-course/[courseId]/_components/CourseDetails";
 import { courseOutput } from "@/app/create-course/[courseId]/page";
-import DashboardHeader from "@/app/dashboard/_components/Header";
 import { useUser } from "@clerk/nextjs";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const ViewCoursePage = ({ params }: { params: { courseId: string } }) => {
   const [course, setCourse] = useState(null);
@@ -34,8 +33,7 @@ const ViewCoursePage = ({ params }: { params: { courseId: string } }) => {
   }, [params.courseId, user]);
   return (
     <div>
-      <DashboardHeader />
-      <div className="p-5 md:p-10">
+      <div className="p-5">
         <BasicInfo course={course} output={output} edit={false} />
         <CourseDetails course={course} />
         <ChapterDetails course={course} output={output} edit={false} />

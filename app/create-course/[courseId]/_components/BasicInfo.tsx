@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "@/configs/FirebaseConfig";
+import Link from "next/link";
 
 interface Props {
   course: courseList | null;
@@ -102,9 +103,11 @@ const BasicInfo = ({ course, output, edit }: Props) => {
           <p className="flex flex-row items-center text-md gap-2 mt-3 text-primary font-semibold">
             <FaPuzzlePiece /> {course?.category}
           </p>
-          <Button className="w-full mt-5" disabled={edit}>
-            Start
-          </Button>
+          <Link href={`/course/${course?.courseId}/start`}>
+            <Button className="w-full mt-5" disabled={edit}>
+              Start
+            </Button>
+          </Link>
         </div>
         <div className="mx-6 mt-6 overflow-hidden">
           <label htmlFor="upload-image" className="w-full">
