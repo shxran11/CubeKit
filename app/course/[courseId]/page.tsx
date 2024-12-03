@@ -32,12 +32,10 @@ const ViewCoursePage = ({ params }: { params: { courseId: string } }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.courseId, user]);
   return (
-    <div>
-      <div className="p-5">
-        <BasicInfo course={course} output={output} edit={false} />
-        <CourseDetails course={course} />
-        <ChapterDetails course={course} output={output} edit={false} />
-      </div>
+    <div className="p-5">
+      <BasicInfo course={course} output={output} edit={false} />
+      <CourseDetails course={course} />
+      <ChapterDetails course={course} output={output} edit={false} />
     </div>
   );
 };

@@ -16,6 +16,7 @@ import { chapters } from "@prisma/client";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { HiMiniListBullet, HiOutlineClock } from "react-icons/hi2";
+import ChapterContent from "../_components/ChapterContent";
 
 interface Chapter {
   "Chapter Name": string;
@@ -68,7 +69,7 @@ const StartPage = () => {
   };
 
   return (
-    <div>
+    <div className="mx-44">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-semibold text-purple-500">
           {selectedChapter?.["Chapter Name"]}
@@ -125,6 +126,10 @@ const StartPage = () => {
       <p className="text-sm text-gray-400 mt-1">
         {selectedChapter?.["Chapter Description"]}
       </p>
+
+      <div>
+        <ChapterContent chapter={chapter} />
+      </div>
     </div>
   );
 };
