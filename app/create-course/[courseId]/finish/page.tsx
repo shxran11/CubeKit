@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import BasicInfo from "../_components/BasicInfo";
-import { courseOutput } from "../page";
 import { useUser } from "@clerk/nextjs";
 import axios from "axios";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import BasicInfo from "../_components/BasicInfo";
+import { courseOutput } from "../page";
 
 interface Props {
   params: { courseId: string };
@@ -50,8 +51,18 @@ const FinalCoursePage = ({ params }: Props) => {
         Congratulations! Your course is ready!
       </h2>
       <BasicInfo course={course} output={output} edit={false} />
-      <div onClick={() => handleCopyToClipboard(`/course/${params.courseId}`)}>
-        <span>Click to Copy Link and Share Course</span>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5 lg:mx-48">
+        <div
+          className="cursor-pointer bg-primary hover:bg-violet-500 text-white font-medium py-2 px-4 rounded-lg shadow-md flex items-center justify-center transition-all duration-300"
+          onClick={() => handleCopyToClipboard(`/course/${params.courseId}`)}
+        >
+          <span className="text-sm sm:text-base">Click to Copy Link</span>
+        </div>
+        <Link href={"/dashboard"}>
+          <div className="cursor-pointer bg-primary hover:bg-violet-500 text-white font-medium py-2 px-4 rounded-lg shadow-md flex items-center justify-center transition-all duration-300">
+            Go to Dashboard
+          </div>
+        </Link>
       </div>
     </div>
   );
