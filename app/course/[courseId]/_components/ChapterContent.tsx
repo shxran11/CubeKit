@@ -1,5 +1,6 @@
 import { chapters } from "@prisma/client";
 import YouTube from "react-youtube";
+import MarkDown from "react-markdown";
 
 interface ContentItem {
   Title: string;
@@ -28,12 +29,16 @@ const ChapterContent = ({ chapter }: { chapter: chapters | undefined }) => {
           (chapter.content as unknown as ContentItem[]).map((item, index) => (
             <div key={index} className="border rounded-lg mt-10 p-5 shadow-md">
               <h2 className="text-xl font-semibold">{item?.Title}</h2>
-              <p className="my-3 text-gray-600">{item?.Explanation}</p>
-              <p className="my-3 p-3 rounded-md bg-black dark:bg-white text-white dark:text-black">
-                <pre>
-                  <code>{item?.CodeExample}</code>
-                </pre>
+              <p className="my-3 text-gray-600">
+                <MarkDown>{item?.Explanation}</MarkDown>
               </p>
+              {item?.CodeExample && (
+                <p className="my-3 p-3 rounded-md bg-black dark:bg-white text-white dark:text-black">
+                  <pre>
+                    <code>{item?.CodeExample}</code>
+                  </pre>
+                </p>
+              )}
             </div>
           ))}
       </div>

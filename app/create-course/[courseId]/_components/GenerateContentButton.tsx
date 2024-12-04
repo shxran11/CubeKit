@@ -26,7 +26,11 @@ const GenerateContentButton = ({ course, output }: Props) => {
         // Map each chapter to a promise and wait for all to resolve
         await Promise.all(
           chapters.map(async (chapter, index) => {
-            const PROMPT = `Explain the concept in detail on the Topic: ${course?.name}, Chapter: ${chapter["Chapter Name"]}, in JSON format with a list of array with field names as Title, explanation on given chapter in detail, Code Example(code in <precode> format), if applicable.`;
+            const PROMPT = `Explain the concept in detail on the Topic: ${course?.name}, Chapter: ${chapter["Chapter Name"]}, in JSON format as a list of objects, where each object contains the fields: 
+- "Title": The title or heading of the section. 
+- "Explanation": A detailed explanation of the concept. 
+- "CodeExample": A code example in <precode> format, if applicable.
+`;
 
             // Fetch video ID
             const videoResponse = await youtubeAPI.getVideos(

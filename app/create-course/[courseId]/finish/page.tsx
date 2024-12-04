@@ -35,12 +35,24 @@ const FinalCoursePage = ({ params }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.courseId, user]);
 
+  const handleCopyToClipboard = async (url: string) => {
+    try {
+      await navigator.clipboard.writeText(url);
+      alert("Link copied to clipboard!");
+    } catch (error) {
+      console.error("Failed to copy link:", error);
+    }
+  };
+
   return (
     <div className="mt-14 p-10">
       <h2 className="text-center text-2xl text-primary font-semibold">
         Congratulations! Your course is ready!
       </h2>
       <BasicInfo course={course} output={output} edit={false} />
+      <div onClick={() => handleCopyToClipboard(`/course/${params.courseId}`)}>
+        <span>Click to Copy Link and Share Course</span>
+      </div>
     </div>
   );
 };

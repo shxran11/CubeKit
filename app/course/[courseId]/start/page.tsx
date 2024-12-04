@@ -17,6 +17,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { HiMiniListBullet, HiOutlineClock } from "react-icons/hi2";
 import ChapterContent from "../_components/ChapterContent";
+import Link from "next/link";
 
 interface Chapter {
   "Chapter Name": string;
@@ -32,6 +33,7 @@ const StartPage = () => {
     undefined
   );
   const [chapter, setChapter] = useState<chapters | undefined>(undefined);
+  const [selectedChapterIndex, setSelectedChapterIndex] = useState<number>(0); // Track the current chapter index (0-based)
   const { user } = useUser();
 
   const getCourse = async () => {
@@ -42,6 +44,8 @@ const StartPage = () => {
           setOutput(result.data.courseOutput);
           if (result.data.courseOutput.Chapters.length > 0) {
             setSelectedChapter(result.data.courseOutput.Chapters[0]);
+            setSelectedChapterIndex(0);
+            fetchChapter(0);
           }
         }
         console.log(result.data);
@@ -65,6 +69,26 @@ const StartPage = () => {
       console.log(result.data);
     } catch (error) {
       console.error("Error fetching chapter:", error);
+    }
+  };
+
+  // Handle Next Chapter Button click
+  const handleNextChapter = () => {
+    if (selectedChapterIndex < (output?.Chapters.length ?? 0) - 1) {
+      const nextChapterIndex = selectedChapterIndex + 1;
+      setSelectedChapter(output?.Chapters[nextChapterIndex]);
+      setSelectedChapterIndex(nextChapterIndex); // Update the index (0-based)
+      fetchChapter(nextChapterIndex); // Fetch the next chapter (0-based index)
+    }
+  };
+
+  // Handle Previous Chapter Button click
+  const handlePreviousChapter = () => {
+    if (selectedChapterIndex > 0) {
+      const prevChapterIndex = selectedChapterIndex - 1;
+      setSelectedChapter(output?.Chapters[prevChapterIndex]);
+      setSelectedChapterIndex(prevChapterIndex); // Update the index (0-based)
+      fetchChapter(prevChapterIndex); // Fetch the previous chapter (0-based index)
     }
   };
 
@@ -102,11 +126,13 @@ const StartPage = () => {
                     className="flex items-center gap-2 border-b py-4"
                     onClick={() => {
                       setSelectedChapter(chapter);
-                      fetchChapter(index);
+                      setSelectedChapterIndex(index); // Update the index when a chapter is selected (0-based)
+                      fetchChapter(index); // Fetch the selected chapter (0-based index)
                     }}
                   >
                     <p className="text-xs border border-primary rounded-full p-1 px-2">
-                      {index + 1}
+                      {index + 1}{" "}
+                      {/* Display 1-based index for visual purposes */}
                     </p>
                     <div>
                       <p className="font-semibold text-purple-500">
@@ -126,9 +152,21 @@ const StartPage = () => {
       <p className="text-sm text-gray-400 mt-1">
         {selectedChapter?.["Chapter Description"]}
       </p>
-
-      <div>
-        <ChapterContent chapter={chapter} />
+      <ChapterContent chapter={chapter} />
+      <div className="flex items-center justify-between mt-5">
+        <Button
+          onClick={handlePreviousChapter}
+          disabled={selectedChapterIndex === 0}
+        >
+          Previous Chapter
+        </Button>
+        {selectedChapterIndex + 1 === output?.Chapters.length ? (
+          <Link href={"/dashboard"}>
+            <Button>Finish</Button>
+          </Link>
+        ) : (
+          <Button onClick={handleNextChapter}>Next Chapter</Button>
+        )}
       </div>
     </div>
   );
