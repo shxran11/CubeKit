@@ -27,13 +27,16 @@ const ChapterContent = ({ chapter }: { chapter: chapters | undefined }) => {
         {chapter?.content &&
           Array.isArray(chapter.content) &&
           (chapter.content as unknown as ContentItem[]).map((item, index) => (
-            <div key={index} className="border rounded-lg mt-10 p-5 shadow-md">
+            <div
+              key={index}
+              className="border border-violet-400 rounded-lg mt-10 p-5 bg-violet-200 dark:bg-black"
+            >
               <h2 className="text-xl font-semibold">{item?.Title}</h2>
-              <p className="my-3 text-gray-600">
+              <p className="my-3 text-gray-600 dark:text-gray-400">
                 <MarkDown>{item?.Explanation}</MarkDown>
               </p>
               {item?.CodeExample && (
-                <p className="my-3 p-3 rounded-md bg-black dark:bg-white text-white dark:text-black">
+                <p className="my-3 p-3 rounded-md bg-black dark:bg-gray-300 text-white dark:text-black">
                   <pre>
                     <code>{item?.CodeExample}</code>
                   </pre>
