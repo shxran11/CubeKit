@@ -16,6 +16,7 @@ model courseList {
   courseOutput     Json
   createdAt        DateTime   @default(now())
   createdBy        String     @db.VarChar(255)
+  username         String     @default("Sharanya") @db.VarChar(255)
   userProfileImage String     @db.VarChar(255)
   imageUrl         String     @default("/image_placeholder.png") @db.VarChar(255)
   published        Boolean    @default(false)
@@ -25,10 +26,10 @@ model courseList {
 
 model chapters {
   id        Int    @id @default(autoincrement())
-  chapterId Int    
+  chapterId Int
   courseId  String
   content   Json
-  videoId   String @db.VarChar(255) 
+  videoId   String @db.VarChar(255)
 
   course courseList @relation(fields: [courseId], references: [courseId], onDelete: Cascade)
 }
