@@ -93,7 +93,7 @@ const StartPage = () => {
   };
 
   return (
-    <div className="mx-44">
+    <div className="lg:mx-44">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-semibold text-purple-500">
           {selectedChapter?.["Chapter Name"]}

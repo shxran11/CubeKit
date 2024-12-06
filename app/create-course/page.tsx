@@ -130,17 +130,17 @@ const CreateCoursePage = () => {
           </div>
         ))}
       </div>
-      <div className="md:mx-44">
+      <div className="md:mx-28 lg:mx-44">
         {activeIndex == 0 ? (
           <div>
             <SelectCategory />
           </div>
         ) : activeIndex == 1 ? (
-          <div className="md:mx-52 my-10">
+          <div className="md:mx-16 lg:mx-52 my-10">
             <SelectTopic />
           </div>
         ) : (
-          <div className="md:mx-44 my-10">
+          <div className="md:mx-12 lg:mx-44 my-10">
             <SelectOptions />
           </div>
         )}

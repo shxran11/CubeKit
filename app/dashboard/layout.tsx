@@ -7,19 +7,30 @@ import { courseList } from "@prisma/client";
 
 const DashboardLayout = ({ children }: PropsWithChildren) => {
   const [userCourseList, setUserCourseList] = useState<courseList[]>([]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prevState) => !prevState);
+  };
+
   return (
     <UserCourseListContext.Provider
       value={{ userCourseList, setUserCourseList }}
     >
-      <div>
-        <div className="md:w-64 hidden md:block">
-          <Sidebar />
+      <div className="flex">
+        {/* Sidebar */}
+        <div className={`md:w-64`}>
+          <Sidebar
+            isSidebarOpen={isSidebarOpen}
+            toggleSidebar={toggleSidebar}
+          />
         </div>
-        <div className="md:ml-64 m-2">
-          <DashboardHeader />
-          <div className="p-5">{children}</div>
+
+        {/* Main content */}
+        <div className="flex-1">
+          <DashboardHeader toggleSidebar={toggleSidebar} />
+          <div className="p-4">{children}</div>
         </div>
-        ;
       </div>
     </UserCourseListContext.Provider>
   );

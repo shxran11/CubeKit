@@ -9,8 +9,15 @@ import { HiOutlineLogout } from "react-icons/hi";
 import { HiGlobeAlt } from "react-icons/hi2";
 import { IoHomeOutline } from "react-icons/io5";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
+import { PanelLeftClose } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-const Sidebar = () => {
+interface SidebarProps {
+  isSidebarOpen: boolean;
+  toggleSidebar: () => void;
+}
+
+const Sidebar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
   const Menu = [
     {
       id: 1,
@@ -47,8 +54,15 @@ const Sidebar = () => {
   const length = userCourseList?.length;
 
   return (
-    <div className="fixed h-full md:w-64 shadow-md border-r">
-      <div className="flex flex-row items-center ml-3 mb-1">
+    <div
+      className={`h-full bg-white shadow-md border-r transition-all duration-300 
+    ${
+      isSidebarOpen || "md:translate-x-0" /* Always visible on md and larger */
+    } ${
+        isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+      } md:block fixed top-0 left-0 w-56 md:w-64 z-50`}
+    >
+      <div className="flex flex-row items-center my-1 ml-3">
         <svg
           fill="none"
           height="48"
@@ -93,7 +107,7 @@ const Sidebar = () => {
           <Link href={item.path} key={item.id}>
             <div
               className={`flex items-center gap-2 cursor-pointer hover:bg-violet-400 hover:text-black rounded-lg p-2 m-2 ${
-                path.startsWith(item.path) && "bg-violet-400 text-black"
+                path === item.path && "bg-violet-400 text-black"
               }`}
               aria-label={item.ariaLabel}
             >
@@ -103,12 +117,22 @@ const Sidebar = () => {
           </Link>
         ))}
       </ul>
-      <div className="m-2 absolute bottom-10 w-[90%]">
-        <Progress value={(length / 5) * 100} />
-        <p className="text-sm my-2">{length} out of 5 courses generated</p>
-        <p className="text-xs text-gray-600">
-          Upgrade your plan for unlimited course generation.
-        </p>
+      <div className="m-2">
+        <div className="absolute bottom-10 w-[90%]">
+          <Progress value={(length / 5) * 100} />
+          <p className="text-sm my-2">{length} out of 5 courses generated</p>
+          <p className="text-xs text-gray-600">
+            Upgrade your plan for unlimited course generation.
+          </p>
+        </div>
+        <Button
+          className="md:hidden absolute bottom-2 right-2 p-2 text-xl flex justify-center items-center"
+          onClick={toggleSidebar}
+          aria-label="Toggle Sidebar"
+          variant={"outline"}
+        >
+          <PanelLeftClose />
+        </Button>
       </div>
     </div>
   );

@@ -11,17 +11,18 @@ interface ContentItem {
 const ChapterContent = ({ chapter }: { chapter: chapters | undefined }) => {
   return (
     <div>
-      <div className="mt-10 flex justify-center">
-        <YouTube
-          videoId={chapter?.videoId}
-          opts={{
-            height: "390",
-            width: "640",
-            playerVars: {
-              autoplay: 0,
-            },
-          }}
-        />
+      <div className="m-5 flex justify-center items-center video-container">
+        <div className="relative w-full max-w-4xl">
+          <YouTube
+            videoId={chapter?.videoId}
+            opts={{
+              playerVars: {
+                autoplay: 0,
+              },
+            }}
+            className="w-full h-auto"
+          />
+        </div>
       </div>
       <div>
         {chapter?.content &&
@@ -36,11 +37,9 @@ const ChapterContent = ({ chapter }: { chapter: chapters | undefined }) => {
                 <MarkDown>{item?.Explanation}</MarkDown>
               </p>
               {item?.CodeExample && (
-                <p className="my-3 p-3 rounded-md bg-black dark:bg-gray-300 text-white dark:text-black">
-                  <pre>
-                    <code>{item?.CodeExample}</code>
-                  </pre>
-                </p>
+                <pre className="my-3 p-3 rounded-md bg-black dark:bg-gray-300 text-white dark:text-black overflow-auto">
+                  <code>{item?.CodeExample}</code>
+                </pre>
               )}
             </div>
           ))}
