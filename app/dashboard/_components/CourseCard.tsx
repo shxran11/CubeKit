@@ -36,8 +36,8 @@ const CourseCard = ({ course, handleOnDelete, canDelete, showUser }: Props) => {
           <Image
             src={course.imageUrl}
             alt="course banner"
-            width={100}
-            height={100}
+            width={1000}
+            height={800}
             className="w-full h-[200px] rounded-sm object-cover"
           />
         </Link>

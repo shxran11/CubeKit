@@ -115,8 +115,8 @@ const BasicInfo = ({ course, output, edit }: Props) => {
               key={selectedFile}
               src={selectedFile ? selectedFile : "/image_placeholder.png"}
               alt="placeholder"
-              width={200}
-              height={200}
+              width={1000}
+              height={800}
               className="w-full rounded-xl h-[250px] object-cover cursor-pointer"
             />
             <input

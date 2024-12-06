@@ -5,7 +5,6 @@ import { Progress } from "@/components/ui/progress";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useContext } from "react";
-import { HiOutlineLogout } from "react-icons/hi";
 import { HiGlobeAlt } from "react-icons/hi2";
 import { IoHomeOutline } from "react-icons/io5";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
@@ -40,13 +39,6 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
       path: "/dashboard/upgrade",
       ariaLabel: "Upgrade your plan",
     },
-    {
-      id: 4,
-      name: "Logout",
-      icon: <HiOutlineLogout aria-hidden="true" />,
-      path: "/dashboard/logout",
-      ariaLabel: "Logout",
-    },
   ];
 
   const path = usePathname();
@@ -55,19 +47,19 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
 
   return (
     <div
-      className={`h-full bg-white shadow-md border-r transition-all duration-300 
+      className={`h-full bg-sidebar dark:bg-gray-950 md:bg-transparent shadow-md border-r transition-all duration-300
     ${
       isSidebarOpen || "md:translate-x-0" /* Always visible on md and larger */
     } ${
         isSidebarOpen ? "translate-x-0" : "-translate-x-full"
       } md:block fixed top-0 left-0 w-56 md:w-64 z-50`}
     >
-      <div className="flex flex-row items-center my-1 ml-3">
+      <div className="flex flex-row items-center my-2 pl-3 border-b shadow-md">
         <svg
           fill="none"
           height="48"
           viewBox="0 0 147 48"
-          width="147"
+          width="200"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
@@ -101,18 +93,21 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
           </g>
         </svg>
       </div>
-      <hr />
-      <ul>
+      <ul className="mt-7">
         {Menu.map((item) => (
           <Link href={item.path} key={item.id}>
             <div
-              className={`flex items-center gap-2 cursor-pointer hover:bg-violet-400 hover:text-black rounded-lg p-2 m-2 ${
-                path === item.path && "bg-violet-400 text-black"
+              className={`flex items-center gap-2 cursor-pointer hover:bg-violet-200 dark:hover:bg-gray-900 rounded-lg p-2 m-2 ${
+                path === item.path && "bg-violet-200 dark:bg-gray-900"
               }`}
               aria-label={item.ariaLabel}
             >
-              <div className="text-2xl">{item.icon}</div>
-              <h2 className="text-xl">{item.name}</h2>
+              <div className="text-3xl text-gray-900 dark:text-gray-200">
+                {item.icon}
+              </div>
+              <h2 className="text-2xl text-gray-900 dark:text-gray-200">
+                {item.name}
+              </h2>
             </div>
           </Link>
         ))}

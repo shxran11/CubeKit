@@ -5,6 +5,9 @@ const nextConfig = {
       "potenzaeducare.com",
       "firebasestorage.googleapis.com",
       "img.clerk.com",
+      "unsplash.com",
+      "www.innovationnewsnetwork.com",
+      "spectrum.ieee.org",
     ],
   },
 };

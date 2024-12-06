@@ -11,7 +11,7 @@ interface ContentItem {
 const ChapterContent = ({ chapter }: { chapter: chapters | undefined }) => {
   return (
     <div>
-      <div className="m-5 flex justify-center items-center video-container">
+      <div className="my-10 mx-5 flex justify-center items-center video-container">
         <div className="relative w-full max-w-4xl">
           <YouTube
             videoId={chapter?.videoId}
