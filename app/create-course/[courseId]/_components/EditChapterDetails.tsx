@@ -46,13 +46,12 @@ const EditChapterDetails = ({ course, output, index }: Props) => {
       chapters[index]["Chapter Description"] = desc;
     }
     try {
-      const result = await axios.patch(`/api/course/${course?.courseId}`, {
+      await axios.patch(`/api/course/${course?.courseId}`, {
         courseOutput: {
           ...output,
           Chapters: chapters,
         },
       });
-      console.log("API Response:", result.data);
 
       router.refresh();
     } catch (error) {

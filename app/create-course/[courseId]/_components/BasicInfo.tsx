@@ -64,7 +64,6 @@ const BasicInfo = ({ course, output, edit }: Props) => {
       })
       .then(() => {
         getDownloadURL(storageRef).then(async (downloadUrl) => {
-          console.log(downloadUrl);
           await axios.patch(`/api/saveImage/${course?.courseId}`, {
             imageUrl: downloadUrl,
           });

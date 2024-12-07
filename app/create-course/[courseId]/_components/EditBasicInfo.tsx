@@ -55,7 +55,7 @@ const EditBasicInfo = ({ course, output, onUpdate }: Props) => {
       }
       router.refresh();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

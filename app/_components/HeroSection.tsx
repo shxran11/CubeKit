@@ -221,7 +221,7 @@ const HeroSection = () => {
               price: "Free",
               features: [
                 "Basic Course Creation",
-                "Access to Public Templates",
+                "Generate upto 5 courses",
                 "Community Support",
               ],
             },
@@ -229,18 +229,21 @@ const HeroSection = () => {
               title: "Pro Plan",
               price: "$19/month",
               features: [
-                "Advanced AI Customization",
-                "Private Templates",
-                "Priority Support",
+                "All Free Plan features, plus:",
+                "50 course generations",
+                "Priority support",
+                "Custom course branding",
               ],
             },
             {
               title: "Enterprise Plan",
               price: "Contact Us",
               features: [
-                "Team Collaboration",
-                "Custom Integrations",
+                "All Pro Plan features, plus:",
+                "Unlimited course generations",
+                "Access to exclusive AI-powered course suggestions",
                 "Dedicated Account Manager",
+                "SLA-backed priority support",
               ],
             },
           ].map((plan, index) => (
@@ -258,9 +261,6 @@ const HeroSection = () => {
                   </li>
                 ))}
               </ul>
-              <button className="mt-6 bg-indigo-500 text-white py-2 px-6 rounded-lg hover:bg-indigo-600">
-                Get Started
-              </button>
             </div>
           ))}
         </div>

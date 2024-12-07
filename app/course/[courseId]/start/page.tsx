@@ -66,7 +66,6 @@ const StartPage = () => {
         `/api/course/${courseId}/chapter/${chapterId}`
       );
       setChapter(result.data.chapter);
-      console.log(result.data);
     } catch (error) {
       console.error("Error fetching chapter:", error);
     }
@@ -95,7 +94,7 @@ const StartPage = () => {
   return (
     <div className="lg:mx-44">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-semibold text-purple-500">
+        <h2 className="text-xl md:text-2xl font-semibold text-purple-500">
           {selectedChapter?.["Chapter Name"]}
         </h2>
         <Sheet>

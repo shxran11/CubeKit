@@ -15,7 +15,7 @@ const UpgradePage = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("personal");
   return (
     <div>
-      <h2 className="w-full flex justify-center text-4xl font-bold">
+      <h2 className="w-full flex justify-center text-3xl md:text-4xl font-bold">
         Upgrade your plan
       </h2>
 

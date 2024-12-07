@@ -41,7 +41,6 @@ const GenerateContentButton = ({ course, output }: Props) => {
             // Generate content using AI
             const result = await GenerateChapterContent_AI.sendMessage(PROMPT);
             const content = JSON.parse(result.response.text());
-            console.log(content);
 
             // Post to /api/chapters with content and videoId
             await axios.post("/api/chapters", {

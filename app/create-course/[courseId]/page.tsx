@@ -37,7 +37,6 @@ const CourseLayoutPage = ({ params }: Props) => {
           setCourse(result.data);
           setOutput(result.data.courseOutput);
         }
-        console.log(result.data);
       }
     } catch (error) {
       console.error("Error fetching course:", error);
