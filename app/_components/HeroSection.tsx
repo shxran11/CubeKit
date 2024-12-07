@@ -155,7 +155,7 @@ const HeroSection = () => {
             className="rounded-lg shadow-lg"
             width="560"
             height="315"
-            src="/sampleVid.mp4"
+            src="/sampleVideo.mp4"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
