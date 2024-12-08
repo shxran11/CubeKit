@@ -5,6 +5,12 @@ const prisma = new PrismaClient();
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
+  if (!body.chapterId || !body.courseId || !body.content || !body.videoId) {
+    return NextResponse.json(
+      { error: "All fields are required" },
+      { status: 400 }
+    );
+  }
   try {
     const newChapter = await prisma.chapters.create({
       data: {
