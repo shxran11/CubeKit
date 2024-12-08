@@ -16,6 +16,7 @@ export async function POST(request: NextRequest) {
         includeVideo: body.includeVideo,
         courseOutput: body.courseOutput,
         createdBy: body.createdBy,
+        username: body.username,
         userProfileImage: body.userProfileImage,
       },
     });
