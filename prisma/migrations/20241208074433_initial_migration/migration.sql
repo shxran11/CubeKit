@@ -14,6 +14,7 @@ CREATE TABLE "courseList" (
     "courseOutput" JSONB NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "createdBy" VARCHAR(255) NOT NULL,
+    "username" VARCHAR(255) NOT NULL DEFAULT 'Sharanya',
     "userProfileImage" VARCHAR(255) NOT NULL,
     "imageUrl" VARCHAR(255) NOT NULL DEFAULT '/image_placeholder.png',
     "published" BOOLEAN NOT NULL DEFAULT false,
@@ -36,4 +37,4 @@ CREATE TABLE "chapters" (
 CREATE UNIQUE INDEX "courseList_courseId_key" ON "courseList"("courseId");
 
 -- AddForeignKey
-ALTER TABLE "chapters" ADD CONSTRAINT "chapters_courseId_fkey" FOREIGN KEY ("courseId") REFERENCES "courseList"("courseId") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "chapters" ADD CONSTRAINT "chapters_courseId_fkey" FOREIGN KEY ("courseId") REFERENCES "courseList"("courseId") ON DELETE CASCADE ON UPDATE CASCADE;
