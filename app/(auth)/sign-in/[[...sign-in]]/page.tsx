@@ -62,13 +62,13 @@ export default function Page() {
                 </svg>
               </a>
 
-              <h1 className="mt-2 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
-                Welcome to CurateIQ 🦑
+              <h1 className="mt-2 text-2xl font-bold text-indigo-200 sm:text-3xl md:text-4xl">
+                Welcome to CurateIQ
               </h1>
 
-              <p className="mt-4 leading-relaxed text-gray-500">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Eligendi nam dolorum aliquam, quibusdam aperiam voluptatum.
+              <p className="my-4 leading-relaxed text-gray-500 text-sm">
+                CurateIQ is an AI tool that instantly generates personalized
+                courses, creating custom syllabi and lesson plans with ease.
               </p>
             </div>
             <SignIn />

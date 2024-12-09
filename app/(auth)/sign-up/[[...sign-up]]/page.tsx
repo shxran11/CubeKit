@@ -3,15 +3,15 @@ import Image from "next/image";
 
 export default function Page() {
   return (
-    <section className="bg-white">
+    <section className="bg-indigo-950">
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
         <section className="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
           <Image
             alt=""
-            src="https://potenzaeducare.com/public/upload/5595Jasper%20AI.jpg"
+            src="https://spectrum.ieee.org/media-library/an-illustration-showing-young-people-sitting-with-computers-behind-and-over-them-are-icons-representing-ai-and-education-topics.jpg?id=50859218&width=1200&height=806"
             className="absolute inset-0 h-full w-full object-cover opacity-80"
-            width={800}
-            height={600}
+            width={1200}
+            height={806}
           />
 
           <div className="hidden lg:relative lg:block lg:p-12">
@@ -62,13 +62,13 @@ export default function Page() {
                 </svg>
               </a>
 
-              <h1 className="mt-2 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
-                Welcome to Squid 🦑
+              <h1 className="mt-2 text-2xl font-bold text-indigo-200 sm:text-3xl md:text-4xl">
+                Welcome to CurateIQ
               </h1>
 
-              <p className="mt-4 leading-relaxed text-gray-500">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Eligendi nam dolorum aliquam, quibusdam aperiam voluptatum.
+              <p className="my-4 leading-relaxed text-gray-500 text-sm">
+                CurateIQ is an AI tool that instantly generates personalized
+                courses, creating custom syllabi and lesson plans with ease.
               </p>
             </div>
             <SignUp />

@@ -89,7 +89,7 @@ const HeroSection = () => {
         </div>
         <div className="mt-8 md:mt-0 md:w-1/2">
           <Image
-            src="https://www.innovationnewsnetwork.com/wp-content/uploads/2024/02/shutterstockPhonlamai-Photo_1058815598-800x450.jpg"
+            src="/landing.jpg"
             alt="AI and Learning"
             className="rounded-lg shadow-lg w-full h-auto"
             quality={90}
@@ -176,13 +176,13 @@ const HeroSection = () => {
             {
               quote:
                 "CubeKit has transformed how I create courses for my students. It's intuitive and powerful!",
-              name: "Jane Doe",
+              name: "Kate Nellson",
               role: "Educator",
             },
             {
               quote:
                 "I saved countless hours creating custom courses. Highly recommend CubeKit!",
-              name: "John Smith",
+              name: "Alex Smith",
               role: "Freelance Trainer",
             },
             {
