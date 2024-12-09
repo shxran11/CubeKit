@@ -12,7 +12,8 @@ const ExplorePage = () => {
   const getCourses = async () => {
     try {
       const result = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/course/all`
+        `${process.env.NEXT_PUBLIC_API_URL}/api/course/all`,
+        { headers: { "Cache-Control": "no-store" } }
       );
       setCourses(result.data);
       setShowSkeleton(false);
