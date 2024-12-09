@@ -11,7 +11,9 @@ const ExplorePage = () => {
 
   const getCourses = async () => {
     try {
-      const result = await axios.get("/api/course/all");
+      const result = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/course/all`
+      );
       setCourses(result.data);
       setShowSkeleton(false);
     } catch (error) {
