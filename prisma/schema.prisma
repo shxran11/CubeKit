@@ -30,7 +30,7 @@ model chapters {
   chapterId Int
   courseId  String
   content   Json
-  videoId   String @db.VarChar(255)
+  videoId   String? @db.VarChar(255)
 
   course courseList @relation(fields: [courseId], references: [courseId], onDelete: Cascade)
 }

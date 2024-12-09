@@ -33,13 +33,19 @@ const ChapterContent = ({ chapter }: { chapter: chapters | undefined }) => {
               className="border border-violet-400 rounded-lg mt-10 p-5 bg-violet-200 dark:bg-black"
             >
               <h2 className="text-xl font-semibold">{item?.Title}</h2>
-              <p className="my-3 text-gray-600 dark:text-gray-400">
-                <MarkDown>{item?.Explanation}</MarkDown>
-              </p>
+              <MarkDown className="my-3 text-gray-600 dark:text-gray-400">
+                {item?.Explanation}
+              </MarkDown>
               {item?.CodeExample && (
-                <pre className="my-3 p-3 rounded-md bg-black dark:bg-gray-300 text-white dark:text-black overflow-auto">
-                  <code>{item?.CodeExample}</code>
-                </pre>
+                <pre
+                  className="my-3 p-3 rounded-md bg-black dark:bg-gray-300 text-white dark:text-black overflow-auto"
+                  dangerouslySetInnerHTML={{
+                    __html: item.CodeExample.replace(
+                      /<precode>/g,
+                      "<pre>"
+                    ).replace(/<\/precode>/g, "</pre>"),
+                  }}
+                />
               )}
             </div>
           ))}

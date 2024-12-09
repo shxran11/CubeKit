@@ -29,14 +29,14 @@ const GenerateContentButton = ({ course, output }: Props) => {
             const PROMPT = `Explain the concept in detail on the Topic: ${course?.name}, Chapter: ${chapter["Chapter Name"]}, in JSON format as a list of objects, where each object contains the fields: 
 - "Title": The title or heading of the section. 
 - "Explanation": A detailed explanation of the concept. 
-- "CodeExample": A code example in <precode> format, if applicable.
+- "CodeExample": A code example in <precode> format, if applicable or return empty string.
 `;
 
             // Fetch video ID
             const videoResponse = await youtubeAPI.getVideos(
               `${course?.name}:${chapter["Chapter Name"]}`
             );
-            const videoId = videoResponse[0]?.id?.videoId || "";
+            const videoId = videoResponse[0]?.id?.videoId || null;
 
             // Generate content using AI
             const result = await GenerateChapterContent_AI.sendMessage(PROMPT);
