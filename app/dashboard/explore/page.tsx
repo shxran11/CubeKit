@@ -19,7 +19,7 @@ const ExplorePage = async () => {
               key={course.courseId}
               className="hover:cursor-pointer transform transition-transform duration-300 hover:scale-105"
             >
-              <CourseCard course={course} canDelete={true} showUser={true} />
+              <CourseCard course={course} canDelete={false} showUser={true} />
             </div>
           );
         })}
