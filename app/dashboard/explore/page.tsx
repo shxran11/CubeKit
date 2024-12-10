@@ -1,31 +1,10 @@
-"use client";
-
-import axios from "axios";
-import React, { useEffect, useState } from "react";
 import CourseCard from "../_components/CourseCard";
-import { courseList } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
-const ExplorePage = () => {
-  const [courses, setCourses] = useState<courseList[] | undefined>(undefined);
-  const [showSkeleton, setShowSkeleton] = useState(true);
+const prisma = new PrismaClient();
 
-  const getCourses = async () => {
-    try {
-      const result = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/course/all`,
-        { headers: { "Cache-Control": "no-store" } }
-      );
-      setCourses(result.data);
-      setShowSkeleton(false);
-    } catch (error) {
-      console.error(error);
-      setShowSkeleton(false);
-    }
-  };
-
-  useEffect(() => {
-    getCourses();
-  }, []);
+const ExplorePage = async () => {
+  const courses = await prisma.courseList.findMany();
 
   return (
     <div>
@@ -34,33 +13,21 @@ const ExplorePage = () => {
         Explore more AI-generated courses by other users
       </p>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-10">
-        {showSkeleton &&
-          Array.from({ length: 5 }).map((_, index) => (
+        {courses.map((course) => {
+          return (
             <div
-              key={index}
-              className="bg-slate-400 w-full h-[300px] animate-pulse rounded-lg"
-            ></div>
-          ))}
-        {courses &&
-          courses.length > 0 &&
-          courses.map((course) => {
-            return (
-              <div
-                key={course.courseId}
-                className="hover:cursor-pointer transform transition-transform duration-300 hover:scale-105"
-              >
-                <CourseCard course={course} canDelete={true} showUser={true} />
-              </div>
-            );
-          })}
-        {!showSkeleton && courses?.length === 0 && (
-          <p className="text-center text-gray-500">
-            No courses available to explore.
-          </p>
-        )}
+              key={course.courseId}
+              className="hover:cursor-pointer transform transition-transform duration-300 hover:scale-105"
+            >
+              <CourseCard course={course} canDelete={true} showUser={true} />
+            </div>
+          );
+        })}
       </div>
     </div>
   );
 };
+
+export const dynamic = "force-dynamic";
 
 export default ExplorePage;

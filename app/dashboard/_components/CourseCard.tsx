@@ -1,3 +1,5 @@
+"use client";
+
 import DifficultyBadge from "@/app/_components/DifficultyBadge";
 import { Badge } from "@/components/ui/badge";
 import {
